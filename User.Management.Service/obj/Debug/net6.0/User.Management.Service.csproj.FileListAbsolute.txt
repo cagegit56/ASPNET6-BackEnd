@@ -1,0 +1,13 @@
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\bin\Debug\net6.0\User.Management.Service.deps.json
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\bin\Debug\net6.0\User.Management.Service.dll
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\bin\Debug\net6.0\User.Management.Service.pdb
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.AssemblyReference.cache
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfoInputs.cache
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.AssemblyInfo.cs
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.csproj.CoreCompileInputs.cache
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.sourcelink.json
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.dll
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\refint\User.Management.Service.dll
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\User.Management.Service.pdb
+C:\Users\kagiso\source\repos\Authorization and Authentication\User.Management.Service\obj\Debug\net6.0\ref\User.Management.Service.dll
