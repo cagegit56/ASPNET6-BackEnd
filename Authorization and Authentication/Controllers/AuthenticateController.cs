@@ -24,7 +24,7 @@ namespace Authorization_and_Authentication.Controllers
         private readonly IConfiguration _configuration;
         private readonly IEmailService _emailService;
         private readonly ApplicationDbContext _ApplicationDbContext;
-       
+
 
         public AuthenticateController(
             UserManager<IdentityUser> userManager,
@@ -51,50 +51,50 @@ namespace Authorization_and_Authentication.Controllers
 
                 //Is Email Confirmed
                 var mailConfirmed = await _userManager.FindByEmailAsync(user.Email);
-                if(mailConfirmed != null) 
+                if (mailConfirmed != null)
                 {
-                    
+
                 bool emailStatus = await _userManager.IsEmailConfirmedAsync(mailConfirmed);
                 if (emailStatus)
-                {
-                        var authClaims = new List<Claim>
+                {              
+                var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Name, user.UserName.ToString())
+                    
                 };
 
-                        foreach (var userRole in userRoles)
-                        {
-                            authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                        }
+                foreach (var userRole in userRoles)
+                {                           
+                  authClaims.Add(new Claim("role", userRole) );                 
+                 }
 
-                        var token = GetToken(authClaims, Get_configuration());
-
-                        return Ok(new
-                        {
-                            token = new JwtSecurityTokenHandler().WriteToken(token),
-                            expiration = token.ValidTo
-                        });
-                        
-                    }
-                    else
-                    {
-                        return Ok(new Response
-                        {
-                            Status = "Error",
-                            Message = "Email is unconfirmed, please confirm it first"
-                        });
-                    }
+                var token = GetToken(authClaims, Get_configuration());
+                     return Ok(new
+                       {
+                          token = new JwtSecurityTokenHandler().WriteToken(token),
+                          expiration = token.ValidTo,
+                         // role = userRoles
+                       });
 
                 }
-                
+                    else
+                     {
+                      return Ok(new Response
+                        {
+                          Status = "Error",
+                          Message = "Email is unconfirmed, please confirm it first "
+                      });
+                   }
+                  }
+
 
             }
             return Unauthorized();
 
-
-
         }
+
 
         [HttpPost]
         [Route("register")]
@@ -119,16 +119,19 @@ namespace Authorization_and_Authentication.Controllers
                new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
             //Email Verification using Token
-                      
+
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Authenticate", new {token, email = user.Email}, Request.Scheme);
-          
-            var message = new Message(new string[] {user.Email!}, "Confirmation email link", $@"<h1>Verify Email</h1>
-                 <br><p style='color: green'>Please Click the Link below to Verify Emaill Account.</p><br> {confirmationLink!} ");
-             _emailService.SendEmail(message);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Authenticate", new { token, email = user.Email }, Request.Scheme);
+            var expiration = DateTime.Now.AddMinutes(8);
+
+            var message = new Message(new string[] { user.Email! }, "Confirmation email link", $@"<h1>Verify Email</h1>
+                 <br><p style='color: green'>Please Click the Link below to Verify Emaill Account.</p><br> <a href='{confirmationLink!}'>Confirm Email </a><br>
+                <p style='color: red'> WARNING<br> The Verify Link Token will Expire at: {expiration}</p>");
+            _emailService.SendEmail(message);
 
             return Ok(new Response { Status = "Success",
-             Message = $"User created successfully & Email sent to {user.Email} Successfully" });
+                Message = $"User created successfully & Email sent to {user.Email} Successfully" });
+
         }
 
         [HttpPost]
@@ -162,6 +165,16 @@ namespace Authorization_and_Authentication.Controllers
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
+            //Email Confirmation
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Authenticate", new { token, email = user.Email }, Request.Scheme);
+            var expiration = DateTime.Now.AddMinutes(8);
+
+            var message = new Message(new string[] { user.Email! }, "Confirmation email link", $@"<h1>Verify Email</h1>
+                 <br><p style='color: green'>Please Click the Link below to Verify Emaill Account.</p><br> <a href='{confirmationLink!}'>Confirm Email </a><br>
+                <p style='color: red'> WARNING<br> The Verify Link Token will Expire at: {expiration}</p>");
+            _emailService.SendEmail(message);
+
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
@@ -177,7 +190,7 @@ namespace Authorization_and_Authentication.Controllers
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.Now.AddMinutes(8),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
@@ -190,15 +203,18 @@ namespace Authorization_and_Authentication.Controllers
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if(user != null)
+            if (user != null)
             {
-                var result = await _userManager.ConfirmEmailAsync(user, token);
-                if (result.Succeeded)
-                {
-                    return StatusCode(StatusCodes.Status200OK,
-                        new Response { Status="Success", Message = "Email Verified Successfully" });
-                }
-              }
+                    var result = await _userManager.ConfirmEmailAsync(user, token);
+                    if (result.Succeeded)
+                    {
+                        return StatusCode(StatusCodes.Status200OK,
+                            new Response { Status = "Success", Message = "Email Verified Successfully, Please Login" });
+                    }
+                    return StatusCode(StatusCodes.Status500InternalServerError,
+                            new Response { Status = "Error", Message = "Invalid or Expired Token" });
+               
+            }
             return StatusCode(StatusCodes.Status500InternalServerError,
                         new Response { Status = "Error", Message = "This User Does not Exist" });
 
@@ -206,66 +222,44 @@ namespace Authorization_and_Authentication.Controllers
         }
 
 
-    
+
 
         [HttpPost("ForgotPassword")]
         // [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordModel forgotPasswordModel)
         {
-            if (ModelState.IsValid) { 
+            if (ModelState.IsValid) {
                 var user = await _userManager.FindByEmailAsync(forgotPasswordModel.Email);
-            if (user == null)
-                return Unauthorized(); 
+                if (user == null)
+                    return Unauthorized();
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var confirmationLink = Url.Action(nameof(ConfirmPassToken), "Authenticate", new { token, email = user.Email }, Request.Scheme);
+                string url = $"{_configuration["AppAngular"]}?token={token}&email={user.Email}";
+                var expires = DateTime.Now.AddMinutes(8);
 
-            var message = new Message(new string[] { user.Email! }, "Confirmation email link", $@"<h1>Verify Email</h1>
-                 <br><p style='color: green'>Please Click the Link below to Verify Emaill Account.</p><br> {confirmationLink!} ");
-            _emailService.SendEmail(message);
-
+                var message = new Message(new string[] { user.Email! }, "Reset Password link",
+                 $@"<body><h1>Password Reset</h1> <br><p style='color: green'>Please Click the Link below to Reset your Password.</p> <br>
+                  <a href='{url!}'><b>Reset Password Here</b> </a>  <br>
+                   <p style='color: red'> WARNING<br> The Reset Password Link Token will Expire at: {expires}</p> </body>");
+                _emailService.SendEmail(message);
                 return StatusCode(StatusCodes.Status200OK,
-                 new Response { Status = "Success", Message = $"Reset Password Email Link Sent Successfully {confirmationLink}" });
-                
-            }
-             return StatusCode(StatusCodes.Status500InternalServerError,
-                  new Response { Status = "Error", Message = "This User Does not Exist" });
-            
-        }
+                        new Response { Status = "Success", Message = $"Successfully Sent Reset Password Link{url}" });
 
-
-
-        [HttpGet("Confirm Password Token")]
-
-        public async Task<IActionResult> ConfirmPassToken(string token, string email)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user != null)
-            {
-                var result = await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.PasswordResetTokenProvider, "ResetPassword", token);
-                if (result)
-                {
-                  
-                    return StatusCode(StatusCodes.Status200OK,
-                        new Response { Status = "Success", Message = "You can now Reset your Password" });
-                }
-                return Ok("Email Not Confirmed");
             }
             return StatusCode(StatusCodes.Status500InternalServerError,
-                        new Response { Status = "Error", Message = "This User Does not Exist" });
-
+                 new Response { Status = "Error", Message = "This User Does not Exist" });
 
         }
 
 
 
-        [HttpPost("changePassword")]
-        public async Task<IActionResult> ResetPassword(ResetPasswordModel model, string email)
+    [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordModel model) 
         {
-            
-            var user = await _userManager.FindByEmailAsync(email);
+                       
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user != null)
             {
-                bool result = await _userManager.IsEmailConfirmedAsync(user);
+                var result = await _userManager.VerifyUserTokenAsync(user, _userManager.Options.Tokens.PasswordResetTokenProvider, "ResetPassword", model.Token);
                 if (result)
                 {
                         var userPass = await _userManager.RemovePasswordAsync(user);
@@ -277,11 +271,15 @@ namespace Authorization_and_Authentication.Controllers
                                 return StatusCode(StatusCodes.Status200OK,
                             new Response { Status = "Success", Message = "Password Successfully Changed" });
                             }
-                        }
-                        return Ok("Password Not Changed");                
+                        return StatusCode(StatusCodes.Status500InternalServerError,
+                new Response { Status = "Error", Message = "Failed to Add Password" });
+                    }
+                    return StatusCode(StatusCodes.Status500InternalServerError,
+                    new Response { Status = "Error", Message = "Failed to Remove Password" });
 
                 }
-                return Ok("Link not Confirmed");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                        new Response { Status = "Error", Message = "Invalid User Token" });
             }
 
 
@@ -289,7 +287,43 @@ namespace Authorization_and_Authentication.Controllers
                         new Response { Status = "Error", Message = "This User Does not Exist" });
         }
 
-     
+
+        [HttpGet("admin")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetAdminData()
+        {
+            // Return data accessible only by users with Admin role
+            return Ok("Admin data");
+        }
+
+        [HttpGet("user")]
+        [Authorize(Roles = "User")]
+        public IActionResult GetUserData()
+        {
+            // Return data accessible only by users
+            return Ok("User data");
+        }
+
+       // [HttpGet("myUsers")]
+       // public IActionResult Get()
+       // {
+        //    return Ok(_userManager.AspNetUsers.ToList());
+       // }
+
+
+        [HttpGet("UseDetails")]
+        [Authorize]
+
+        public async Task<Object> getUserDetails()
+        {
+            string userId = User.Claims.First(c => c.Type == "Id").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            return new {
+                user.UserName
+                
+            };
+
+        }
 
 
 
