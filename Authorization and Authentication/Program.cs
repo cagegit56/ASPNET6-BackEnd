@@ -1,7 +1,9 @@
+using Authorization_and_Authentication;
 using Authorization_and_Authentication.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -9,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Text.Json;
 using User.Management.Service.Models;
 using User.Management.Service.Services;
 
@@ -75,6 +78,26 @@ builder.Services.AddCors(options =>
         });
 });
 
+//builder.Services.AddControllers().AddJsonOptions(options =>
+//{
+//  options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+//});
+
+//builder.Services.AddControllers()
+//.AddJsonOptions(options =>
+//{
+//  options.JsonSerializerOptions.Converters.Add(new ByteJsonConverter());
+//});  
+
+
+
+//builder.Services.AddControllers(options =>
+//{
+//options.ModelBinderProviders.Insert(0, new FormFileModelBinderProvider());
+//});
+
+
+builder.Services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
 
 builder.Services.AddControllers();
@@ -99,5 +122,6 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 app.MapControllers();
+app.UseStaticFiles();
 
 app.Run();

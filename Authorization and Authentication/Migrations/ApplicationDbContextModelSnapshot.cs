@@ -47,6 +47,35 @@ namespace Authorization_and_Authentication.Migrations
                     b.ToTable("Employee", (string)null);
                 });
 
+            modelBuilder.Entity("Authorization_and_Authentication.Auth.StockModel", b =>
+                {
+                    b.Property<int>("ProdId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProdId"));
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ImgData")
+                        .HasColumnType("varbinary(MAX)");
+
+                    b.Property<string>("ProdName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdPrice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Quantity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProdId");
+
+                    b.ToTable("Stock", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")

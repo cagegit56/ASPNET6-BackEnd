@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\wwwroot\\Uploads\\Products\\.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\Products\\.jpg"
+    },
+    {
+      "Id": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\wwwroot\\Uploads\\Products\\2000\\2000.jpg",
+      "PackagePath": "staticwebassets\\Uploads\\Products\\2000\\2000.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Authorization and Authentication.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Authorization and Authentication.props",
+      "PackagePath": "build\\Authorization and Authentication.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Authorization and Authentication.props",
+      "PackagePath": "buildMultiTargeting\\Authorization and Authentication.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Authorization and Authentication.props",
+      "PackagePath": "buildTransitive\\Authorization and Authentication.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

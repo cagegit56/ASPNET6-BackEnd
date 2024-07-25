@@ -1,11 +1,58 @@
 {
   "Version": 1,
-  "Hash": "xpTsvrYezwq0W2boLohK/dDg5TEcWKWe2IK+xlCbowk=",
+  "Hash": "nSr8Jp3GhLITMbGc+GR15Hgd7UArahT3hsMiQl2Av5Y=",
   "Source": "Authorization and Authentication",
   "BasePath": "_content/Authorization and Authentication",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Authorization and Authentication\\wwwroot",
+      "Source": "Authorization and Authentication",
+      "ContentRoot": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\wwwroot\\",
+      "BasePath": "_content/Authorization and Authentication",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\wwwroot\\Uploads\\Products\\.jpg",
+      "SourceId": "Authorization and Authentication",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\wwwroot\\",
+      "BasePath": "_content/Authorization and Authentication",
+      "RelativePath": "Uploads/Products/.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Products\\.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\wwwroot\\Uploads\\Products\\2000\\2000.jpg",
+      "SourceId": "Authorization and Authentication",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\wwwroot\\",
+      "BasePath": "_content/Authorization and Authentication",
+      "RelativePath": "Uploads/Products/2000/2000.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Uploads\\Products\\2000\\2000.jpg"
+    }
+  ]
 }

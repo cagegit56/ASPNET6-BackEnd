@@ -288,47 +288,6 @@ namespace Authorization_and_Authentication.Controllers
         }
 
 
-        [HttpGet("admin")]
-        [Authorize(Roles = "Admin")]
-        public IActionResult GetAdminData()
-        {
-            // Return data accessible only by users with Admin role
-            return Ok("Admin data");
-        }
-
-        [HttpGet("user")]
-        [Authorize(Roles = "User")]
-        public IActionResult GetUserData()
-        {
-            // Return data accessible only by users
-            return Ok("User data");
-        }
-
-       // [HttpGet("myUsers")]
-       // public IActionResult Get()
-       // {
-        //    return Ok(_userManager.AspNetUsers.ToList());
-       // }
-
-
-        [HttpGet("UseDetails")]
-        [Authorize]
-
-        public async Task<Object> getUserDetails()
-        {
-            string userId = User.Claims.First(c => c.Type == "Id").Value;
-            var user = await _userManager.FindByIdAsync(userId);
-            return new {
-                user.UserName
-                
-            };
-
-        }
-
-
-
-
-
         // [HttpPost("resetPassword")]
         // public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel resetPasswordModel)
         // {

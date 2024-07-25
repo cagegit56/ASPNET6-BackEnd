@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7gfEp+ozQtrBm6gf7XthE1fReoBUiQChykvk+TQ3MXVCWbmDoBotdLhUlbLqKPfMOVxuZojywLaBafP/KL3pLA==",
+  "dgSpecHash": "a5ad00f283kocTG57M1VYVJ61cxSg/dKmBc8LapzwdgHl/ezj3csM9yfqj91OBk94CKY2lAr+cmdOb2xEk7MgQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\kagiso\\source\\repos\\Authorization and Authentication\\Authorization and Authentication\\Authorization and Authentication.csproj",
   "expectedPackageFiles": [
@@ -53,6 +53,7 @@
     "C:\\Users\\kagiso\\.nuget\\packages\\mimekit\\3.2.0\\mimekit.3.2.0.nupkg.sha512",
     "C:\\Users\\kagiso\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\kagiso\\.nuget\\packages\\netcore.mailkit\\2.1.0\\netcore.mailkit.2.1.0.nupkg.sha512",
+    "C:\\Users\\kagiso\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\kagiso\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\kagiso\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\kagiso\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",

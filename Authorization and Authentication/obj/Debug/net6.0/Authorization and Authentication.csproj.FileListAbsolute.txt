@@ -192,3 +192,5 @@ C:\Users\kagiso\source\repos\Authorization and Authentication\Authorization and 
 C:\Users\kagiso\source\repos\Authorization and Authentication\Authorization and Authentication\obj\Debug\net6.0\Authorization and Authentication.pdb
 C:\Users\kagiso\source\repos\Authorization and Authentication\Authorization and Authentication\obj\Debug\net6.0\Authorization and Authentication.genruntimeconfig.cache
 C:\Users\kagiso\source\repos\Authorization and Authentication\Authorization and Authentication\obj\Debug\net6.0\ref\Authorization and Authentication.dll
+C:\Users\kagiso\source\repos\Authorization and Authentication\Authorization and Authentication\bin\Debug\net6.0\Authorization and Authentication.staticwebassets.runtime.json
+C:\Users\kagiso\source\repos\Authorization and Authentication\Authorization and Authentication\bin\Debug\net6.0\Newtonsoft.Json.dll
