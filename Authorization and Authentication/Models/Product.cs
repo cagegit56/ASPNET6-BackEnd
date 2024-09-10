@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Authorization_and_Authentication.Models;
 
-public class ProductImage
+public class Product
 {
-    public int Id { get; set; }
+    public int ProdId { get; set; }
 
     public string? ProdName { get; set; }
 

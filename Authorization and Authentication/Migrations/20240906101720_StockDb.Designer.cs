@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Authorization_and_Authentication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240604092253_StockDb")]
+    [Migration("20240906101720_StockDb")]
     partial class StockDb
     {
         /// <inheritdoc />
@@ -68,15 +68,36 @@ namespace Authorization_and_Authentication.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProdPrice")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Quantity")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProdId");
 
-                    b.ToTable("Stock", (string)null);
+                    b.ToTable("StockProducts", (string)null);
+                });
+
+            modelBuilder.Entity("Authorization_and_Authentication.Models.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ImgData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ProdName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProdPrice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductImage", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -11,23 +11,22 @@ namespace Authorization_and_Authentication.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ImgProducts");
+                name: "InventoryProducts");
 
             migrationBuilder.CreateTable(
-                name: "Stock",
+                name: "StockProducts",
                 columns: table => new
                 {
                     ProdId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProdName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProdPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProdPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImgData = table.Column<byte[]>(type: "varbinary(MAX)", nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Quantity = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stock", x => x.ProdId);
+                    table.PrimaryKey("PK_StockProducts", x => x.ProdId);
                 });
         }
 
@@ -35,21 +34,22 @@ namespace Authorization_and_Authentication.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Stock");
+                name: "StockProducts");
 
             migrationBuilder.CreateTable(
-                name: "ImgProducts",
+                name: "InventoryProducts",
                 columns: table => new
                 {
-                    prodId = table.Column<int>(type: "int", nullable: false)
+                    ProdId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    imgData = table.Column<byte[]>(type: "varbinary(MAX)", nullable: true),
-                    prodName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    prodPrice = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgData = table.Column<byte[]>(type: "varbinary(MAX)", nullable: true),
+                    ProdName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProdPrice = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ImgProducts", x => x.prodId);
+                    table.PrimaryKey("PK_InventoryProducts", x => x.ProdId);
                 });
         }
     }

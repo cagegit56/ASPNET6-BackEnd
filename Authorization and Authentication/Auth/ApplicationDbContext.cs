@@ -14,17 +14,18 @@ namespace Authorization_and_Authentication.Auth
         }
 
         public DbSet<Employee> Employee { get; set; }
-        public DbSet<StockModel> Stock { get; set; }
         public DbSet<ProductImage> ProductImage { get; set; }
+        public DbSet<StockModel> Stock { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<Employee>().ToTable("Employee");
             builder.Entity<ProductImage>().ToTable("ProductImage");
-            builder.Entity<StockModel>().ToTable("Stock").Property(x => x.ImgData)
+            builder.Entity<StockModel>().ToTable("StockProducts").Property(x => x.ImgData)
             .HasColumnType("varbinary(MAX)");
-            
+
         }
 
         

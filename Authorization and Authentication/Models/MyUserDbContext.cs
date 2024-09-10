@@ -31,13 +31,15 @@ public partial class MyUserDbContext : DbContext
 
     public virtual DbSet<Image> Images { get; set; }
 
+    public virtual DbSet<Product> Products { get; set; }
+
     public virtual DbSet<ProductImage> ProductImages { get; set; }
 
-    public virtual DbSet<Stock> Stocks { get; set; }
+    public virtual DbSet<StockProduct> StockProducts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-HK5AN4U;Initial Catalog=MyUserDB;Integrated Security=True;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-HK5AN4U;Database=MyUserDB;Trusted_Connection=True;Integrated Security=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -119,6 +121,13 @@ public partial class MyUserDbContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Images__3214EC076D27192F");
         });
 
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.HasKey(e => e.ProdId);
+
+            entity.Property(e => e.ProdId).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<ProductImage>(entity =>
         {
             entity.ToTable("ProductImage");
@@ -126,6 +135,9 @@ public partial class MyUserDbContext : DbContext
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("id");
+            entity.Property(e => e.Category)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.ImgData).HasColumnType("image");
             entity.Property(e => e.ProdName)
                 .HasMaxLength(40)
@@ -135,11 +147,9 @@ public partial class MyUserDbContext : DbContext
                 .IsFixedLength();
         });
 
-        modelBuilder.Entity<Stock>(entity =>
+        modelBuilder.Entity<StockProduct>(entity =>
         {
             entity.HasKey(e => e.ProdId);
-
-            entity.ToTable("Stock");
         });
 
         OnModelCreatingPartial(modelBuilder);

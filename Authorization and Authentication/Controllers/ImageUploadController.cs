@@ -42,6 +42,7 @@ namespace Authorization_and_Authentication.Controllers
                             Id = int.Parse(httpRequest["Id"]),
                             ProdPrice = httpRequest["ProdPrice"],
                             ProdName = postedFile.FileName,
+                            Category = httpRequest["Category"],
                             ImgData = Mydata
                         });
                         await this._ApplicationDbContext.SaveChangesAsync();
@@ -53,6 +54,21 @@ namespace Authorization_and_Authentication.Controllers
 
         }
 
+
+        [HttpGet("GetImage")]
+
+        public ActionResult<List<ProductImage>> GetImage()
+        {
+            var result = _ApplicationDbContext.ProductImage.ToList();
+            return result;
+
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_ApplicationDbContext.ProductImage.ToList());
+        }
 
 
 
