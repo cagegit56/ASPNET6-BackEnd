@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Authorization_and_Authentication.Models;
 
-public class ProductImage
+public partial class ProductImage
 {
     public int Id { get; set; }
 
@@ -14,4 +14,6 @@ public class ProductImage
     public byte[]? ImgData { get; set; }
 
     public string? Category { get; set; }
+
+    public int? Quantity { get; set; }
 }

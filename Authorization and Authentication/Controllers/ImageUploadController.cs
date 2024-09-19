@@ -41,6 +41,7 @@ namespace Authorization_and_Authentication.Controllers
                         {
                             Id = int.Parse(httpRequest["Id"]),
                             ProdPrice = httpRequest["ProdPrice"],
+                            Quantity = int.Parse(httpRequest["Quantity"]),
                             ProdName = postedFile.FileName,
                             Category = httpRequest["Category"],
                             ImgData = Mydata
